@@ -6,9 +6,13 @@ from .models import Portfolio
 stock_price = 100
 bond_price = 1000
 
+# capital =
+
 def sum_1(num, price):
     sum = num * price
     return sum
+
+def all_items():
 
 
 def index(request):
