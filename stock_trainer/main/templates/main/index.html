@@ -16,13 +16,13 @@
     <div class="card-deck mb-3 text-center">
         <div class="card mb-4 shadow-sm">
             <div class="card-header">
-                <h4 class="my-0 font-weight-normal">{{item1}}</h4>
+                <h4 class="my-0 font-weight-normal">{{item1_title}}</h4>
             </div>
             <div class="card-body">
-                <h1 class="card-title pricing-card-title">100 руб.</h1>
+                <h1 class="card-title pricing-card-title">{{ stock_price }} руб.</h1>
                 <ul class="list-unstyled mt-3 mb-4">
-                    <li>В портфеле: {{item2}} шт.</li>
-                    <li>Капитал: 50,000.00 руб.</li>
+                    <li>В портфеле: {{item1_num}} шт.</li>
+                    <li>Капитал: {{item1_sum}} руб.</li>
                     <li>_______________________</li>
                 </ul>
                 <button type="button" class="btn btn-lg btn-block btn-outline-primary">Купить</button>
@@ -31,13 +31,13 @@
         </div>
         <div class="card mb-4 shadow-sm">
             <div class="card-header">
-                <h4 class="my-0 font-weight-normal">{{item3}}</h4>
+                <h4 class="my-0 font-weight-normal">{{item2_title}}</h4>
             </div>
             <div class="card-body">
-                <h1 class="card-title pricing-card-title">1,000 руб.</h1>
+                <h1 class="card-title pricing-card-title">{{ bond_price }} руб.</h1>
                 <ul class="list-unstyled mt-3 mb-4">
-                    <li>В портфеле: {{item4}} шт.</li>
-                    <li>Капитал: 50,000.00 руб.</li>
+                    <li>В портфеле: {{item2_num}} шт.</li>
+                    <li>Капитал: {{item2_sum}} руб.</li>
                     <li>_______________________</li>
                 </ul>
                 <button type="button" class="btn btn-lg btn-block btn-outline-primary">Купить</button>
