@@ -32,6 +32,11 @@ def breifcase(stock_num, bond_num, cash):
     cash += 20000
 
 
+# def upload(request):
+#     if request.method == 'POST':
+#         cash = 20000
+#         return cash, render(request, 'main/index.html')
+
 
 
 
