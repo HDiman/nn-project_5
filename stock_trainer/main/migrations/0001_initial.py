@@ -17,6 +17,7 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('title', models.CharField(max_length=100, verbose_name='Название актива')),
                 ('num', models.IntegerField(verbose_name='Кол-во')),
+                ('price', models.IntegerField(verbose_name='Цена'))
             ],
             options={
                 'verbose_name': 'Актив',

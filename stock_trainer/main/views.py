@@ -9,8 +9,6 @@ import time
 
 start_capital = 100000.00
 cash = 0
-stock_price = 100
-bond_price = 1000
 volatility = 0.2  # волатильность акции (стандартное отклонение ежемесячных процентных изменений цены)
 time_horizon = 120  # количество дней наблюдения
 
@@ -44,21 +42,23 @@ def breifcase(stock_num, bond_num, cash):
 def index(request):
     item_1_title = Portfolio.objects.all()[0].title
     item_1_num = Portfolio.objects.all()[0].num
+    item_1_price = Portfolio.objects.all()[0].price
     item_2_title = Portfolio.objects.all()[1].title
     item_2_num = Portfolio.objects.all()[1].num
+    item_2_price = Portfolio.objects.all()[1].price
 
-    item_1_sum = item_1_num * stock_price
-    item_2_sum = item_2_num * bond_price
+    item_1_sum = item_1_num * item_1_price
+    item_2_sum = item_2_num * item_2_price
     capital = item_1_sum + item_2_sum
 
     return render(request, 'main/index.html', {'item1_title': item_1_title,
                                                'item1_num': item_1_num,
                                                'item1_sum': item_1_sum,
-                                               'stock_price': stock_price,
+                                               'item1_price': item_1_price,
                                                'item2_title': item_2_title,
                                                'item2_num': item_2_num,
                                                'item2_sum': item_2_sum,
-                                               'bond_price': bond_price,
+                                               'item2_price': item_2_price,
                                                'capital': capital,
                                                'cash': cash})
 
