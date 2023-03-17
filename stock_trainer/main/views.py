@@ -32,38 +32,31 @@ def briefcase(stock_num, bond_num, cash, stock_price, bond_price):
     cash += 20000
     return stock_case, bond_case, personal_case, stock_interest, bond_interest
 
-# def upload(request):
-#     if request.method == 'POST':
-#         cash = 20000
-#         return cash, render(request, 'main/index.html')
-
-
-
-
 
 def index(request):
-    item_1_title = Portfolio.objects.all()[0].title
-    item_1_num = Portfolio.objects.all()[0].num
-    item_1_price = Portfolio.objects.all()[0].price
-    item_2_title = Portfolio.objects.all()[1].title
-    item_2_num = Portfolio.objects.all()[1].num
-    item_2_price = Portfolio.objects.all()[1].price
+    stocks = Portfolio.objects.all()[0]
+    bonds = Portfolio.objects.all()[1]
 
-    item_1_sum = item_1_num * item_1_price
-    item_2_sum = item_2_num * item_2_price
+    stock_price, bond_price = prices(stocks.price, bonds.price)
+
+    stocks.price = round(stock_price)
+    stocks.save()
+    bonds.price = round(bond_price)
+    bonds.save()
+
+    item_1_sum = stocks.num * stocks.price
+    item_2_sum = bonds.num * bonds.price
     capital = item_1_sum + item_2_sum
 
-    data = {'item1_title': item_1_title,
-            'item1_num': item_1_num,
+    data = {'item1_title': stocks.title,
+            'item1_num': stocks.num,
             'item1_sum': item_1_sum,
-            'item1_price': item_1_price,
-            'item2_title': item_2_title,
-            'item2_num': item_2_num,
+            'item1_price': stocks.price,
+            'item2_title': bonds.title,
+            'item2_num': bonds.num,
             'item2_sum': item_2_sum,
-            'item2_price': item_2_price,
+            'item2_price': bonds.price,
             'capital': capital,
             'cash': cash}
 
     return render(request, 'main/index.html', context=data)
-
-
