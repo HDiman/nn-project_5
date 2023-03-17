@@ -2,11 +2,8 @@ from django.shortcuts import render
 from .models import Portfolio
 import random
 import math
-import time
-
 
 # Create your views here.
-
 start_capital = 100000.00
 cash = 0
 
