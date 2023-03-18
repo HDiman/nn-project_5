@@ -6,10 +6,17 @@ import math
 # Create your views here.
 start_capital = 100000.00
 cash = 0
+month = 0
+
 
 volatility = 0.2  # волатильность акции (стандартное отклонение ежемесячных процентных изменений цены)
 time_horizon = 120  # количество дней наблюдения
 
+
+# Счетчик времени
+def months(item):
+    item += 1
+    return item
 
 # Блок по установке к начальным настройкам
 def start_training():
@@ -36,7 +43,7 @@ def briefcase(stock_num, bond_num, cashes, stock_price, bond_price):
     personal_case = round(stock_case + bond_case + cashes)
     stock_interest = round(stock_case / (personal_case / 100))
     bond_interest = 100 - stock_interest
-    cashes += 20000
+    cashes += 10000
     return stock_case, bond_case, personal_case, stock_interest, bond_interest
 
 
@@ -45,26 +52,31 @@ start_training()
 
 
 def index(request):
+
     stocks = Portfolio.objects.all()[0]
     bonds = Portfolio.objects.all()[1]
 
     stocks.price, bonds.price = prices(stocks.price, bonds.price)
-
     stocks.save()
     bonds.save()
 
-    item_1_sum = stocks.num * stocks.price
-    item_2_sum = bonds.num * bonds.price
-    capital = item_1_sum + item_2_sum
+    stocks_sum, bonds_sum, capital, stocks_interest, bonds_interest = briefcase(stocks.num,
+                                                                            bonds.num,
+                                                                            cash,
+                                                                            stocks.price,
+                                                                            bonds.price)
+
 
     data = {'item1_title': stocks.title,
             'item1_num': stocks.num,
-            'item1_sum': item_1_sum,
+            'item1_sum': stocks_sum,
             'item1_price': stocks.price,
+            'item1_int': stocks_interest,
             'item2_title': bonds.title,
             'item2_num': bonds.num,
-            'item2_sum': item_2_sum,
+            'item2_sum': bonds_sum,
             'item2_price': bonds.price,
+            'item2_int': bonds_interest,
             'capital': capital,
             'cash': cash}
 
