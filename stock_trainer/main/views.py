@@ -11,7 +11,7 @@ month = 0
 
 
 volatility = 0.2  # волатильность акции (стандартное отклонение ежемесячных процентных изменений цены)
-time_horizon = 120  # количество дней наблюдения
+time_horizon = 120  # количество месяцев наблюдения
 
 
 # Счетчик времени
@@ -25,7 +25,7 @@ def start_training():
     stocks = Portfolio.objects.all()[0]
     bonds = Portfolio.objects.all()[1]
     stocks.title, stocks.num, stocks.price = 'Акция', 500, 100
-    bonds.title, bonds.num, bonds.price = 'Облигация', 50, 994
+    bonds.title, bonds.num, bonds.price = 'Облигация', 50, 995
     stocks.save()
     bonds.save()
 
@@ -34,7 +34,11 @@ def start_training():
 def prices(stock_price, bond_price):
     monthly_return = math.exp(random.gauss(0.0, volatility)) - 1.0
     stock_price *= 1.0 + monthly_return
-    bond_price = round(bond_price + 6)
+    if stock_price < 50:
+        stock_price *= 2
+    elif stock_price > 3000:
+        stock_price -= 300
+    bond_price = round(bond_price + 5)
     return round(stock_price), round(bond_price)
 
 
@@ -60,14 +64,13 @@ def equalize(capital, stocks_price):
 start_training()
 
 
-
 def index(request):
 
     # Блок инициализации данных из Базы Данных
     stocks = Portfolio.objects.all()[0]
     bonds = Portfolio.objects.all()[1]
 
-    # Блок установки цен
+    # Блок определения цен
     stocks.price, bonds.price = prices(stocks.price, bonds.price)
 
     # Блок оценки портфеля
@@ -95,6 +98,10 @@ def index(request):
             'item2_int': bonds_interest,
             'capital': capital,
             'cash': cash}
+
+    # Блок очистки данных из Базы Данных
+    # stocks = Portfolio.objects.all()[0].delete()
+    # bonds = Portfolio.objects.all()[1].delete()
 
     # Блок отправки данных на страницу
     return render(request, 'main/index.html', context=data)
