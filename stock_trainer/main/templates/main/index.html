@@ -9,7 +9,7 @@
 
 <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
     <h1 class="display-4">Портфель</h1>
-    <p class="lead">Раз в месяц можно купить или продать активы по текущим ценам или полностью перейти в наличность</p>
+    <p class="lead">Раз в два месяца можно купить или продать активы по текущим ценам или полностью перейти в наличность</p>
 </div>
 
 <div class="container">
@@ -19,10 +19,10 @@
                 <h4 class="my-0 font-weight-normal">{{item1_title}}</h4>
             </div>
             <div class="card-body">
-                <h1 class="card-title pricing-card-title">{{ item1_price }} руб.</h1>
+                <h2 class="card-title pricing-card-title">{{ item1_sum }} руб.</h2>
                 <ul class="list-unstyled mt-3 mb-4">
                     <li>В портфеле: {{item1_num}} шт.</li>
-                    <li>Капитал: {{item1_sum}} руб.</li>
+                    <h5><li>Курс: {{item1_price}} руб.</li></h5>
                     <li>_______________________</li>
                 </ul>
                 <button type="button" class="btn btn-lg btn-block btn-outline-primary">Купить</button>
@@ -34,10 +34,10 @@
                 <h4 class="my-0 font-weight-normal">{{item2_title}}</h4>
             </div>
             <div class="card-body">
-                <h1 class="card-title pricing-card-title">{{ item2_price }} руб.</h1>
+                <h2 class="card-title pricing-card-title">{{ item2_sum }} руб.</h2>
                 <ul class="list-unstyled mt-3 mb-4">
                     <li>В портфеле: {{item2_num}} шт.</li>
-                    <li>Капитал: {{item2_sum}} руб.</li>
+                    <h5><li>Цена: {{item2_price}} руб.</li></h5>
                     <li>_______________________</li>
                 </ul>
                 <button type="button" class="btn btn-lg btn-block btn-outline-primary">Купить</button>
