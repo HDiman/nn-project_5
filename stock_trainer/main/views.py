@@ -3,6 +3,7 @@ from .models import Portfolio
 import random
 import math
 
+
 # Create your views here.
 start_capital = 100000.00
 cash = 0
@@ -18,7 +19,8 @@ def months(item):
     item += 1
     return item
 
-# Блок по установке к начальным настройкам
+
+# Блок по сбросу к начальным настройкам
 def start_training():
     stocks = Portfolio.objects.all()[0]
     bonds = Portfolio.objects.all()[1]
@@ -38,12 +40,20 @@ def prices(stock_price, bond_price):
 
 # Блок оценки стоимости портфеля
 def briefcase(stock_num, bond_num, stock_price, bond_price):
-    stock_case = round(stock_price * stock_num)
-    bond_case = round(bond_price * bond_num)
-    personal_case = round(stock_case + bond_case)
-    stock_interest = round(stock_case / (personal_case / 100))
+    stocks_sum = round(stock_price * stock_num)
+    bonds_sum = round(bond_price * bond_num)
+    capital = round(stocks_sum + bonds_sum)
+    stock_interest = round(stocks_sum / (capital / 100))
     bond_interest = 100 - stock_interest
-    return stock_case, bond_case, personal_case, stock_interest, bond_interest
+    return stocks_sum, bonds_sum, capital, stock_interest, bond_interest
+
+
+# Блок по уравниванию портфеля
+def equalize(capital, stocks_price):
+    half_capital = round(capital / 2)
+    stocks_num = round(half_capital / stocks_price)
+    bonds_num = round(half_capital / 1000)
+    return stocks_num, bonds_num
 
 
 # Обновление в начале запуска
@@ -52,19 +62,26 @@ start_training()
 
 def index(request):
 
+    # Блок инициализации данных из Базы Данных
     stocks = Portfolio.objects.all()[0]
     bonds = Portfolio.objects.all()[1]
 
+    # Блок установки цен
     stocks.price, bonds.price = prices(stocks.price, bonds.price)
+
+    # Блок оценки портфеля
+    stocks_sum, bonds_sum, capital, stocks_interest, bonds_interest = briefcase(stocks.num, bonds.num, stocks.price, bonds.price)
+
+    # Блок выравнивания портфеля
+    if stocks_interest > 69 or bonds_interest > 69:
+        stocks.num, bonds.num = equalize(capital, stocks.price)
+        bonds.price = 1000
+
+    # Блок сохранения данных в Базе Данных
     stocks.save()
     bonds.save()
 
-    stocks_sum, bonds_sum, capital, stocks_interest, bonds_interest = briefcase(stocks.num,
-                                                                            bonds.num,
-                                                                            stocks.price,
-                                                                            bonds.price)
-
-
+    # Блок данных для страницы
     data = {'item1_title': stocks.title,
             'item1_num': stocks.num,
             'item1_sum': stocks_sum,
@@ -78,4 +95,5 @@ def index(request):
             'capital': capital,
             'cash': cash}
 
+    # Блок отправки данных на страницу
     return render(request, 'main/index.html', context=data)
