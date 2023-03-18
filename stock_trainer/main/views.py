@@ -37,13 +37,12 @@ def prices(stock_price, bond_price):
 
 
 # Блок оценки стоимости портфеля
-def briefcase(stock_num, bond_num, cashes, stock_price, bond_price):
+def briefcase(stock_num, bond_num, stock_price, bond_price):
     stock_case = round(stock_price * stock_num)
     bond_case = round(bond_price * bond_num)
-    personal_case = round(stock_case + bond_case + cashes)
+    personal_case = round(stock_case + bond_case)
     stock_interest = round(stock_case / (personal_case / 100))
     bond_interest = 100 - stock_interest
-    cashes += 10000
     return stock_case, bond_case, personal_case, stock_interest, bond_interest
 
 
@@ -62,7 +61,6 @@ def index(request):
 
     stocks_sum, bonds_sum, capital, stocks_interest, bonds_interest = briefcase(stocks.num,
                                                                             bonds.num,
-                                                                            cash,
                                                                             stocks.price,
                                                                             bonds.price)
 
