@@ -77,7 +77,7 @@ def index(request):
     stocks_sum, bonds_sum, capital, stocks_interest, bonds_interest = briefcase(stocks.num, bonds.num, stocks.price, bonds.price)
 
     # Блок выравнивания портфеля
-    if stocks_interest > 69 or bonds_interest > 69:
+    if stocks_interest > 59 or bonds_interest > 59:
         stocks.num, bonds.num = equalize(capital, stocks.price)
         bonds.price = 1000
 
