@@ -15,17 +15,17 @@ time_horizon = 120  # количество месяцев наблюдения
 
 
 # Счетчик времени
-def months(item):
-    item += 1
-    return item
+def months(num):
+    num += 1
+    return num
 
 
 # Блок по сбросу к начальным настройкам
 def start_training():
     stocks = Portfolio.objects.all()[0]
     bonds = Portfolio.objects.all()[1]
-    stocks.title, stocks.num, stocks.price = 'Акция', 500, 100
-    bonds.title, bonds.num, bonds.price = 'Облигация', 50, 995
+    stocks.title, stocks.num, stocks.price = 'Акции', 500, 100
+    bonds.title, bonds.num, bonds.price = 'Облигации', 50, 995
     stocks.save()
     bonds.save()
 
@@ -98,10 +98,6 @@ def index(request):
             'item2_int': bonds_interest,
             'capital': capital,
             'cash': cash}
-
-    # Блок очистки данных из Базы Данных
-    # stocks = Portfolio.objects.all()[0].delete()
-    # bonds = Portfolio.objects.all()[1].delete()
 
     # Блок отправки данных на страницу
     return render(request, 'main/index.html', context=data)
